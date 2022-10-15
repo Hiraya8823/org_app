@@ -13,7 +13,7 @@
         </div>
     </div>
     <section id="news" class="news_content wrapper">
-        <h2 class="page_title">News</h2>
+        <h2 class="page_title">Events & News</h2>
         <div class="news_grid">
                 <article>
                     <a href="">
@@ -39,7 +39,7 @@
                         </div>
                     </a>
                 </article>
-                <a class="button" href="news.html">
+                <a class="button" href="news.php">
                 More
                 <i class="fa-regular fa-circle-right"></i>
                 </a>

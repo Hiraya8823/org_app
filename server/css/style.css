@@ -57,7 +57,7 @@ img {
     margin-left: 61px;
 }
 /* ホバー時に下線を引く */
-.menu_nav li a:hover {
+a:hover {
     text-decoration: underline;
 }
 /*Main Visual--------------------------*/
@@ -90,6 +90,7 @@ img {
 }
 .page_title{
     font-size: 2.5rem;
+    padding-bottom: 30px;
 }
 .news_header {
     display: flex;
@@ -113,7 +114,6 @@ img {
 .about_grid{
     display: flex;
     color: #000000;
-    padding-top: 4%;
 }
 .about_grid img{
     width: 40%;
@@ -151,4 +151,29 @@ img {
     padding-left: 20px;
     font-size: 1.5rem;
     align-items: center;
+}
+/* News.php--------------------------*/
+.news_container{
+    max-width: 1200px;
+    padding-top: 100px;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+.news_php_content{
+    text-align: center;
+    font-size: 250%;
+    color: #000;
+    letter-spacing: 0.05em;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.news_php_grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+.news_php{
+    padding: 8% 5%;
 }
