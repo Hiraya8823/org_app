@@ -93,8 +93,35 @@
                     </div>
                 </a>
             </article>
+            <article class="item">
+                <a href="">
+                    <img src="../images/古着1.webp" alt="古着写真">
+                    <div class="items_header">
+                        <h3>Reebok/"LONDON WEWBLEY STADIUM 28.OCT.07"Foodie</h3>
+                        4800JPY
+                    </div>
+                </a>
+            </article>
+            <article class="item">
+                <a href="">
+                    <img src="../images/古着2.webp" alt="古着写真">
+                    <div class="items_header">
+                        <h3>UMBRO/GLEN SHIELDS FC Practice shirt/X-Large</h3>
+                        3,957JPY
+                    </div>
+                </a>
+            </article>
+            <article class="item">
+                <a href="">
+                    <img src="../images/古着3.webp" alt="古着写真">
+                    <div class="items_header">
+                        <h3>Penfield/POLARTEC FLEECE JKT/Large/Made in USA</h3>
+                        5,390JPY
+                    </div>
+                </a>
+            </article>
         </div>
-        <a class="button" href="">
+        <a class="button" href="items.php">
             More
             <i class="fa-regular fa-circle-right"></i>
         </a>

@@ -20,6 +20,10 @@ a {
 img {
     max-width: 100%;
 }
+/* ホバー時に下線を引く */
+a:hover {
+    text-decoration: underline;
+}
 /* コンテンツ全体に対する指定 */
 .wrapper {
     margin: 0 auto;
@@ -31,7 +35,7 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #FAFAFA;
+    background: #F2F2F0;
     width: 100%;
     position: fixed;
     top: 0;
@@ -56,10 +60,7 @@ img {
 .menu_nav li {
     margin-left: 61px;
 }
-/* ホバー時に下線を引く */
-a:hover {
-    text-decoration: underline;
-}
+
 /*Main Visual--------------------------*/
 .main_content {
     padding-top: 100px;
@@ -155,12 +156,20 @@ a:hover {
 /* News.php--------------------------*/
 .news_container{
     max-width: 1200px;
-    padding-top: 100px;
     padding-left: 0px;
     padding-right: 0px;
     width: 100%;
     margin-right: auto;
     margin-left: auto;
+}
+.news_photo{
+    width: 350px;
+    height: 235px;
+}
+.news_photo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 .news_php_content{
     text-align: center;
@@ -176,4 +185,26 @@ a:hover {
 }
 .news_php{
     padding: 8% 5%;
+    font-size: 14px;
+}
+/* items.php--------------------------*/
+.items_photo{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 100px;
+    width: 100%;
+}
+.pagination {
+    display: flex;
+    width: 200px;
+    margin: auto;
+}
+.pagination li {
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+    text-align: center
+}
+.pagination li a {
+    display: block;
 }
