@@ -208,3 +208,39 @@ a:hover {
 .pagination li a {
     display: block;
 }
+/* product_detail.php--------------------------*/
+.product_content{
+    display: flex;
+    padding-top: 100px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.product_img{
+    width: 100%;
+    min-width: 400px;
+}
+.product_detail{
+    margin-left: 30px;
+}
+.product_name{
+    margin-bottom: 10px;
+    color: #000;
+}
+.product_price{
+    color: #1878b9;
+    margin-bottom: 20px;
+}
+.submit_btn{
+    background: #1878B9;
+    font-size: 25px;
+    border: 0px;
+    max-height: 50px;
+    color: #ffffff;
+    width:230px;
+    height:42px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+}
+.submit_btn:hover{
+    color: #000000;
+}
