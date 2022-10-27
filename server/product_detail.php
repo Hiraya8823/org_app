@@ -13,7 +13,7 @@
                 Reebok/"LONDON WEWBLEY STADIUM 28.OCT.07"Foodie
             </h1>
             <h2 class="product_price">
-                ￥3,750
+                3,750JPY
             </h2>
             <input type="submit" class="submit_btn" value="Add to cart">
             <p>
