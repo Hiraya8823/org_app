@@ -76,6 +76,7 @@ a:hover {
 }
 .left_content p{
     margin: auto 20px;
+    color: #000;
 }
 .header_logout_button{
     margin-right: 20px;
