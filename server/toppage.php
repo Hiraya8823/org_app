@@ -9,7 +9,6 @@ if (isset($_SESSION['current_user'])) {
     $current_user = $_SESSION['current_user'];
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
