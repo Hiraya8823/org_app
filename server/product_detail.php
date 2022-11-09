@@ -3,7 +3,7 @@
 <head>
 <?php include_once __DIR__ . '/head.html' ?> 
 <body>
-    <?php include_once __DIR__ . '/_header.html' ?>
+    <?php include_once __DIR__ . '/_header.php' ?>
     <div id="product_detail" class="product_content wrapper">
         <div class="product_img">
             <img src="../images/古着1.webp" alt="古着写真">
