@@ -3,7 +3,7 @@
 <head>
 <?php include_once __DIR__ . '/head.html' ?> 
 <body>
-    <?php include_once __DIR__ . '/_header.html' ?>
+    <?php include_once __DIR__ . '/_header.php' ?>
     <div id="product_carts" class="product_carts">
         <div class="box">
             <h1 class="left wrapper">
@@ -42,7 +42,7 @@
                 </div>
                 <p>Tax included and shipping calculated at checkout.</p>
                 <div class="row_right">
-                    <a href="">Check out</a>
+                    <a href="purchase.php">Check out</a>
                 </div>
             </div>
         </div>

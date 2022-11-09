@@ -3,7 +3,7 @@
 <head>
 <?php include_once __DIR__ . '/head.html' ?> 
 <body>
-    <?php include_once __DIR__ . '/_header.html' ?>
+    <?php include_once __DIR__ . '/_header.php' ?>
     <div class="items_photo">
         <img src="../images/banar2207.webp" alt="写真">
     </div>
