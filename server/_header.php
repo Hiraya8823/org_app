@@ -10,6 +10,8 @@
                 ようこそ、<?= $current_user['name'] ?>さん
             </p>
             <a class="header_logout_button" href="logout.php" class="nav-link">ログアウト</a>
+            <!-- edit.php へのURLを追記 -->
+            <a href="edit.php" class="btn edit-btn">設定変更</a>
         <?php endif; ?>
     </div>
     <nav class="menu_content">
