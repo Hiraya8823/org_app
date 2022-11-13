@@ -11,10 +11,10 @@ if (isset($_SESSION['current_user'])) {
 ?>
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-<?php include_once __DIR__ . '/head.html' ?> 
+<?php include_once __DIR__ . '/common/head.html' ?>
+
 <body>
-    <?php include_once __DIR__ . '/_header.php' ?>
+    <?php include_once __DIR__ . '/common/_header.php' ?>
     <div id="product_carts" class="product_carts">
         <div class="box">
             <h1 class="left wrapper">
@@ -58,6 +58,7 @@ if (isset($_SESSION['current_user'])) {
             </div>
         </div>
     </div>
-    <?php include_once __DIR__ . '/_footer.html' ?>
+    <?php include_once __DIR__ . '/common/_footer.php' ?>
 </body>
+
 </html>

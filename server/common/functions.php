@@ -23,9 +23,9 @@ function h($str)
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
 
-function signup_validate($email, $name, $password,$post_code,$address,$phone_number)
+function signup_validate($email, $name, $password, $post_code, $address, $phone_number)
 {
-    
+
     $errors = [];
 
     // バリデーション
@@ -53,15 +53,17 @@ function signup_validate($email, $name, $password,$post_code,$address,$phone_num
         $errors[] = MSG_PHONE_NUMBER_REQUIRED;
     }
 
-    if (empty($errors) &&
-        check_exist_user($email)) {
+    if (
+        empty($errors) &&
+        check_exist_user($email)
+    ) {
         $errors[] = MSG_EMAIL_DUPLICATE;
     }
 
     return $errors;
 }
 
-function insert_user($email, $name, $password,$post_code,$address,$phone_number)
+function insert_user($email, $name, $password, $post_code, $address, $phone_number)
 {
     try {
         $dbh = connect_db();
@@ -91,7 +93,7 @@ function insert_user($email, $name, $password,$post_code,$address,$phone_number)
     }
 }
 
-function check_exist_user($email) 
+function check_exist_user($email)
 {
     $dbh = connect_db();
 
@@ -156,6 +158,79 @@ function user_login($user)
 {
     $_SESSION['current_user']['id'] = $user['id'];
     $_SESSION['current_user']['name'] = $user['name'];
-    header('Location: /toppage.php');
+    $_SESSION['current_user']['admin'] = $user['admin'];
+    $_SESSION['current_user']['password'] = $user['password'];
+    $_SESSION['current_user']['post_code'] = $user['post_code'];
+    $_SESSION['current_user']['address'] = $user['address'];
+    $_SESSION['current_user']['phone_number'] = $user['phone_number'];
+    $_SESSION['current_user']['email'] = $user['email'];
+    header('Location: /index.php');
+
     exit;
+}
+
+
+// タスク更新時のバリデーション
+function update_validate($email, $name, $post_code, $address, $phone_number)
+{
+
+    $errors = [];
+
+    // バリデーション
+    if (empty($email)) {
+        $errors[] = MSG_EMAIL_REQUIRED;
+    }
+
+    if (empty($name)) {
+        $errors[] = MSG_NAME_REQUIRED;
+    }
+
+    if (empty($post_code)) {
+        $errors[] = MSG_POST_CODE_REQUIRED;
+    }
+
+    if (empty($address)) {
+        $errors[] = MSG_ADADDRESS_REQUIRED;
+    }
+
+    if (empty($phone_number)) {
+        $errors[] = MSG_PHONE_NUMBER_REQUIRED;
+    }
+// 変更前のemailが同じの場合はセーフにしたい
+    if (
+        empty($errors) &&
+        check_exist_user($email)
+    ) {
+        $errors[] = MSG_EMAIL_DUPLICATE;
+    }
+    return $errors;
+}
+// タスク更新
+function update_task($email, $name, $post_code, $address, $phone_number)
+{
+    // データベースに接続
+    $dbh = connect_db();
+    // $id を使用してデータを更新
+    $sql = <<<EOM
+    UPDATE
+        users
+    SET
+        email = :email
+        name = :name
+        post_code = :post_code
+        address = :address
+        phone_number = :phone_number
+    WHERE
+        id = :id
+    EOM;
+    // プリペアドステートメントの準備
+    $stmt = $dbh->prepare($sql);
+    // パラメータのバインド
+    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+    $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+    $stmt->bindValue(':post_code', $post_code, PDO::PARAM_STR);
+    $stmt->bindValue(':address', $address, PDO::PARAM_STR);
+    $stmt->bindValue(':phone_number', $phone_number, PDO::PARAM_STR);
+    // プリペアドステートメントの実行
+    $stmt->execute();
 }

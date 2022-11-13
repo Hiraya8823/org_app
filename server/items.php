@@ -11,10 +11,10 @@ if (isset($_SESSION['current_user'])) {
 ?>
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-<?php include_once __DIR__ . '/head.html' ?> 
+<?php include_once __DIR__ . '/common/head.html' ?>
+
 <body>
-    <?php include_once __DIR__ . '/_header.php' ?>
+    <?php include_once __DIR__ . '/common/_header.php' ?>
     <div class="items_photo">
         <img src="../images/banar2207.webp" alt="写真">
     </div>
@@ -179,6 +179,7 @@ if (isset($_SESSION['current_user'])) {
             </li>
         </ul>
     </section>
-    <?php include_once __DIR__ . '/_footer.html' ?>
+    <?php include_once __DIR__ . '/common/_footer.php' ?>
 </body>
+
 </html>

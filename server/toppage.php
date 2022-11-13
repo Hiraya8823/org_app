@@ -11,10 +11,10 @@ if (isset($_SESSION['current_user'])) {
 ?>
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-<?php include_once __DIR__ . '/head.html' ?> 
+<?php include_once __DIR__ . '/common/head.html' ?>
+
 <body>
-    <?php include_once __DIR__ . '/_header.php' ?>
+    <?php include_once __DIR__ . '/common/_header.php' ?>
     <div id="main" class="main_content">
         <div class="big_bg">
             <h2>
@@ -26,34 +26,34 @@ if (isset($_SESSION['current_user'])) {
     <section id="news" class="news_content wrapper">
         <h2 class="page_title">Events & News</h2>
         <div class="news_grid">
-                <article>
-                    <a href="">
-                        <div class="news_header">
-                            <div class="day">2022.04.18</div>
-                            <h3>イベント出店のお知らせ</h3>
-                        </div>
-                    </a>
-                </article>
-                <article>
-                    <a href="">
-                        <div class="news_header">
-                            <div class="day">2022.04.18</div>
-                            <h3>イベント出店のお知らせ</h3>
-                        </div>
-                    </a>
-                </article>
-                <article>
-                    <a href="">
-                        <div class="news_header">
-                            <div class="day">2022.04.18</div>
-                            <h3>イベント出店のお知らせ</h3>
-                        </div>
-                    </a>
-                </article>
-                <a class="button" href="news.php">
+            <article>
+                <a href="">
+                    <div class="news_header">
+                        <div class="day">2022.04.18</div>
+                        <h3>イベント出店のお知らせ</h3>
+                    </div>
+                </a>
+            </article>
+            <article>
+                <a href="">
+                    <div class="news_header">
+                        <div class="day">2022.04.18</div>
+                        <h3>イベント出店のお知らせ</h3>
+                    </div>
+                </a>
+            </article>
+            <article>
+                <a href="">
+                    <div class="news_header">
+                        <div class="day">2022.04.18</div>
+                        <h3>イベント出店のお知らせ</h3>
+                    </div>
+                </a>
+            </article>
+            <a class="button" href="news.php">
                 More
                 <i class="fa-regular fa-circle-right"></i>
-                </a>
+            </a>
         </div>
     </section>
     <section id="items" class="items_content wrapper">
@@ -142,11 +142,13 @@ if (isset($_SESSION['current_user'])) {
         <div class="about_grid">
             <div class="about">
                 <h3>私たちは、文化古着を多様性の町二セコ町で広めたい思いで"Comfy"を始めました。"Comfy"とは英語で「快適な」や「居心地がいい」という意味"Comfortable"の口語系の形で、よりカジュアルな意味合いの言葉です。皆さんに当店での時間を心地よく過ごせるように、また当店の服や雑貨を身に着ける時に「ちょうど良い」と思っていただけるような想いを込めてお店の名前にさせていただきました。
-                <br>イベントへの行商をメインに販売を行っております。</h3>
+                    <br>イベントへの行商をメインに販売を行っております。
+                </h3>
             </div>
-            <img src="../images/comfy写真000.webp" alt="comfy背景写真">
+            <img src="/../images/comfy写真000.webp" alt="comfy背景写真">
         </div>
     </section>
-    <?php include_once __DIR__ . '/_footer.html' ?>
+    <?php include_once __DIR__ . '/common/_footer.php' ?>
 </body>
+
 </html>

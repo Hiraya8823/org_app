@@ -1,7 +1,7 @@
 <?php
 
 // 関数ファイルを読み込む
-require_once __DIR__ . '/functions.php';
+require_once __DIR__ . '/common/functions.php';
 
 // 変数の初期化
 $email = '';
@@ -21,9 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $address = filter_input(INPUT_POST, 'address');
     $phone_number = filter_input(INPUT_POST, 'phone_number');
 
-    $errors = signup_validate($email, $name, $password,$post_code,$address,$phone_number);
-    if (empty($errors) &&
-        insert_user($email, $name, $password,$post_code,$address,$phone_number)) {
+    $errors = signup_validate($email, $name, $password, $post_code, $address, $phone_number);
+    if (
+        empty($errors) &&
+        insert_user($email, $name, $password, $post_code, $address, $phone_number)
+    ) {
         header('Location: login.php');
         exit;
     }
@@ -31,13 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-<?php include_once __DIR__ . '/head.html' ?> 
+<?php include_once __DIR__ . '/common/head.html' ?>
+
 <body>
-    <?php include_once __DIR__ . '/_header.php' ?>
+    <?php include_once __DIR__ . '/common/_header.php' ?>
     <div class="signup_content">
         <h2 class="signup_title">新規ユーザー登録</h2>
-        <?php include_once __DIR__ . '/_errors.php' ?>
+        <?php include_once __DIR__ . '/common/_errors.php' ?>
         <form class="signup_form" action="" method="post">
             <label class="email_label" for="email">メールアドレス</label>
             <input type="email" name="email" id="email" placeholder="Email" value="<?= h($email) ?>">
@@ -57,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </form>
     </div>
-    <?php include_once __DIR__ . '/_footer.html' ?>
+    <?php include_once __DIR__ . '/common/_footer.php' ?>
 </body>
+
 </html>

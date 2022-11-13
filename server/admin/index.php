@@ -11,14 +11,12 @@ if (isset($_SESSION['current_user'])) {
 ?>
 <!DOCTYPE html>
 <html lang="ja">
-<?php include_once __DIR__ . '/common/head.html' ?>
+<?php include_once __DIR__ . '/../common/head.html' ?>
 
 <body>
-    <?php include_once __DIR__ . '/common/_header.php' ?>
+    <?php include_once __DIR__ . '/../common/_header.php' ?>
 
-
-
-    <?php include_once __DIR__ . '/common/_footer.php' ?>
+    <?php include_once __DIR__ . '/../common/_footer.php' ?>
 </body>
 
 </html>
