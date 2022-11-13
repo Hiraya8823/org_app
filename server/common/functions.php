@@ -171,7 +171,7 @@ function user_login($user)
 
 
 // タスク更新時のバリデーション
-function update_validate($email, $name, $post_code, $address, $phone_number)
+function update_validate($email, $name, $post_code, $address, $phone_number, $current_user)
 {
 
     $errors = [];
@@ -201,12 +201,14 @@ function update_validate($email, $name, $post_code, $address, $phone_number)
         empty($errors) &&
         check_exist_user($email)
     ) {
+        if ($current_user['email'] != $email) {
         $errors[] = MSG_EMAIL_DUPLICATE;
+        }
     }
     return $errors;
 }
 // タスク更新
-function update_task($email, $name, $post_code, $address, $phone_number)
+function update_task($id, $email, $name, $post_code, $address, $phone_number)
 {
     // データベースに接続
     $dbh = connect_db();
@@ -215,17 +217,19 @@ function update_task($email, $name, $post_code, $address, $phone_number)
     UPDATE
         users
     SET
-        email = :email
-        name = :name
-        post_code = :post_code
-        address = :address
+        email = :email,
+        name = :name,
+        post_code = :post_code,
+        address = :address,
         phone_number = :phone_number
     WHERE
         id = :id
     EOM;
+
     // プリペアドステートメントの準備
     $stmt = $dbh->prepare($sql);
     // パラメータのバインド
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->bindValue(':email', $email, PDO::PARAM_STR);
     $stmt->bindValue(':name', $name, PDO::PARAM_STR);
     $stmt->bindValue(':post_code', $post_code, PDO::PARAM_STR);
