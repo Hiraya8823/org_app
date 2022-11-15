@@ -238,3 +238,111 @@ function update_task($id, $email, $name, $post_code, $address, $phone_number)
     // プリペアドステートメントの実行
     $stmt->execute();
 }
+// news更新
+function insert_validate($news, $news_title, $upload_file)
+{
+    $errors = [];
+
+    if (empty($upload_file)) {
+        $errors[] = MSG_NO_IMAGE;
+    } else {
+        if (check_file_ext($upload_file)) {
+            $errors[] = MSG_NOT_ABLE_EXT;
+        }
+    }
+
+    if (empty($news_title)) {
+        $errors[] = MSG_NO_NEWS_TITLE;
+    }
+
+    if (empty($news)) {
+        $errors[] = MSG_NO_DESCRIPTION;
+    }
+
+    return $errors;
+}
+function check_file_ext($upload_file)
+{
+    $err = false;
+
+    $file_ext = pathinfo($upload_file, PATHINFO_EXTENSION);
+    if (!in_array($file_ext, EXTENTION)) {
+        $err = true;
+    }
+
+    return $err;
+}
+function insert_news($image_name, $news, $news_title)
+{
+    $dbh = connect_db();
+
+    $sql = <<<EOM
+    INSERT INTO 
+        news
+        (name, image, news) 
+    VALUES 
+        (:name, :image, :news);
+    EOM;
+    $stmt = $dbh->prepare($sql);
+
+    $stmt->bindValue(':name', $news_title, PDO::PARAM_STR);
+    $stmt->bindValue(':news', $news, PDO::PARAM_STR);
+    $stmt->bindValue(':image', $image_name, PDO::PARAM_STR);
+    $stmt->execute();
+}
+//  タスク完了
+function delete_news_by_id($id)
+{
+    // データベースに接続
+    $dbh = connect_db();
+
+    // $id を使用してデータを更新
+    $sql = <<<EOM
+    UPDATE
+        news
+    SET
+        admin = 1
+    WHERE
+        id = :id
+    EOM;
+
+    // プリペアドステートメントの準備
+    $stmt = $dbh->prepare($sql);
+
+    // パラメータのバインド
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+    // プリペアドステートメントの実行
+    $stmt->execute();
+}
+// done に応じてレコードを取得
+function find_news_by_admin($status)
+{
+
+    // データベースに接続
+$dbh = connect_db();
+
+/* タスク照会
+---------------------------------------------*/
+// done を抽出条件に指定してデータを取得
+$sql = <<<EOM
+SELECT
+    *
+FROM
+    news
+WHERE
+    admin = :status;
+EOM;
+
+// プリペアドステートメントの準備
+$stmt = $dbh->prepare($sql);
+
+// バインド(代入)するパラメータの準備
+$status = 0;
+
+$stmt->bindValue(':status', $status, PDO::PARAM_INT);
+$stmt->execute();
+
+// 結果の取得
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
