@@ -208,7 +208,7 @@ function update_validate($email, $name, $post_code, $address, $phone_number, $cu
     return $errors;
 }
 // タスク更新
-function update_task($id, $email, $name, $post_code, $address, $phone_number)
+function update_user($id, $email, $name, $post_code, $address, $phone_number)
 {
     // データベースに接続
     $dbh = connect_db();
@@ -345,4 +345,77 @@ $stmt->execute();
 
 // 結果の取得
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+// 受け取った id のレコードを取得
+function find_news_by_id($id)
+{
+    // データベースに接続
+    $dbh = connect_db();
+
+    // $id を使用してデータを取得
+    $sql = <<<EOM
+    SELECT
+        *
+    FROM
+        news
+    WHERE
+        id = :id;
+    EOM;
+
+    // プリペアドステートメントの準備
+    $stmt = $dbh->prepare($sql);
+
+    // パラメータのバインド
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+    // プリペアドステートメントの実行
+    $stmt->execute();
+
+    // 結果の取得
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+// タスク更新時のバリデーション
+function update_news_validate($news, $news_title)
+{
+
+    $errors = [];
+
+    // バリデーション
+
+    if (empty($news_title)) {
+        $errors[] = MSG_NO_NEWS_TITLE;
+    }
+
+    if (empty($news)) {
+        $errors[] = MSG_NO_DESCRIPTION;
+    }
+
+    return $errors;
+}
+// newsアップデート
+function update_news($id, $news, $news_title)
+{
+    // データベースに接続
+    $dbh = connect_db();
+    // $id を使用してデータを更新
+    $sql = <<<EOM
+    UPDATE
+        news
+    SET
+        news = :news,
+        name = :name
+    WHERE
+        id = :id
+    EOM;
+
+    // プリペアドステートメントの準備
+    $stmt = $dbh->prepare($sql);
+    // パラメータのバインド
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':news', $news, PDO::PARAM_STR);
+    $stmt->bindValue(':name', $news_title, PDO::PARAM_STR);
+
+    // プリペアドステートメントの実行
+    $stmt->execute();
 }

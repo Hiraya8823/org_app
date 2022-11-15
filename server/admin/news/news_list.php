@@ -7,13 +7,14 @@ require_once __DIR__ . '/../../common/config.php';
 session_start();
 
 $current_user = '';
+$news_notdelete = '';
 
 if (isset($_SESSION['current_user'])) {
     $current_user = $_SESSION['current_user'];
 }
 
 
-// 未完了タスクの取得
+// newsの取得
 $news_notdelete = find_news_by_admin(NEWS_NOTDELETE);
 
 ?>
@@ -25,14 +26,14 @@ $news_notdelete = find_news_by_admin(NEWS_NOTDELETE);
     <?php include_once __DIR__ . '/../../common/_header.php' ?>
 
     <div class="news_new_content">
-        <h2 class="news_new_title">NEWS変更</h2>
+        <h2 class="news_new_title">NEWS一覧</h2>
 
         <ul>
             <?php foreach ($news_notdelete as $news) : ?>
                 <li class="one-task">
                     <a href="" class="btn check-btn done-btn"><?= h($news['name']) ?></a>
                     <div class="btn-set">
-                        <a href="" class="btn edit-btn"><i class="fa-solid fa-pencil"></i></a>
+                        <a href="edit.php?id=<?= h($news['id']) ?>" class="btn edit-btn"><i class="fa-solid fa-pencil"></i></a>
                         <a href="delete.php?id=<?= h($news['id']) ?>" class="btn delete-btn"><i class="fa-solid fa-trash-can"></i></a>
                     </div>
                 </li>

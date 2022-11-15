@@ -84,6 +84,7 @@ a:hover {
     color: #000;
 }
 
+
 /*Main Visual--------------------------*/
 .main_content {
     padding-top: 100px;
@@ -722,6 +723,7 @@ textarea {
     margin-left: auto;
     margin-right: 58px;
 }
+
 .edit-btn {
     font-size: 1.6rem;
     padding: 5% 23% 14% 23%;

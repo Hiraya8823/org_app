@@ -39,8 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // エラーチェック
     if (empty($errors)) {
-        
-        update_task($id, $email, $name, $post_code, $address, $phone_number);
+
+        update_user($id, $email, $name, $post_code, $address, $phone_number);
         // index.php にリダイレクト
         header('Location: index.php');
         exit;

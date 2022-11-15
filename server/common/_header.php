@@ -18,14 +18,14 @@
                         <li><a class="header_logout_button" href="/admin/news/news_list.php" class="nav-link">news変更</a></li>
                     </details>
                     <details>
-                        <summary>Product</summary>
+                        <summary>Product設定</summary>
                         <li><a class="header_logout_button" href="/admin/product/new.php" class="nav-link">商品登録</a></li>
                         <li><a class="header_logout_button" href="" class="nav-link">商品変更</a></li>
                     </details>
                     
                 <?php else : ?>
                     <a class="header_logout_button" href="/logout.php" class="nav-link">ログアウト</a>
-                    <a href="/../edit.php" class="btn edit-btn">設定変更</a>
+                    <a href="/../edit.php" class="btn header_edit-btn">設定変更</a>
                 <?php endif; ?>
             <?php endif; ?>
         </div>

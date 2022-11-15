@@ -12,4 +12,5 @@ delete_news_by_id($id);
 
 // index.php にリダイレクト
 header('Location: news_list.php');
+
 exit;
