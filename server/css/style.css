@@ -43,7 +43,6 @@ a:hover {
 .page_header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     background: #F2F2F0;
     width: 100%;
     position: fixed;
@@ -71,15 +70,20 @@ a:hover {
 }
 .left_content{
     display: flex;
-    align-items: center;
     font-size: 1.2rem;
 }
+.user_header{
+    display: flex;
+    margin: 15px 20px;
+    gap: 20px;
+}
+.user_header summary{
+    color: #000;
+}
 .left_content p{
-    margin: auto 20px;
+    color: #000;
 }
-.header_logout_button{
-    margin-right: 20px;
-}
+
 
 /*Main Visual--------------------------*/
 .main_content {
@@ -247,7 +251,7 @@ a:hover {
     margin-bottom: 10px;
     color: #000;
 }
-.product_price{
+.product_detail_price{
     color: #1878b9;
     margin-bottom: 20px;
 }
@@ -603,7 +607,8 @@ h1 {
 input[type="email"],
 input[type="text"],
 input[type="password"],
-input[type="tel"] {
+input[type="tel"],
+input[type="news_title"] {
     display: block;
     width: 100%;
     background-color: #FFFFFF;
@@ -630,13 +635,16 @@ input[type="tel"]::placeholder{
     margin: 100px auto;
     padding: 50px;
 }
-.signup_title {
+.signup_title,
+.news_new_title {
     text-align: center;
     margin-bottom: 30px
 }
 .email_label,
 .name_label,
-.password_label {
+.password_label,
+.title_label,
+.news_label {
     display: block;
     margin: 10px 0px;
 }
@@ -662,4 +670,79 @@ input[type="tel"]::placeholder{
     color: #FFFFFF;
     border-radius: 30px;
     text-decoration: none;
+}
+/* news_new.php */
+.news_new_content {
+    background-color: #F2F2F0;
+    border-radius: 10px;
+    width: 800px;
+    margin: 100px auto;
+    padding: 50px;
+}
+.input_file {
+    display: none;
+}
+.input_text {
+    width: 100%;
+    border: 1px solid #E6E6E6;
+    padding: 10px;
+    height: 400px;
+}
+.input_text ::placeholder {
+    color: #999999;
+}
+textarea {
+    display: block;
+    width: 100%;
+    background-color: #FFFFFF;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.input_file {
+    display: flex;
+    color: #000000;
+}
+/* news_edit.php */
+.one-task {
+    background: #FBFBFB;
+    position: relative;
+    border-radius: 5px;
+    list-style: none;
+    margin: auto 15%;
+    margin-top: 2%;
+    display: flex;
+    align-items: center;
+    align-content: stretch;
+    padding: 0;
+}
+.btn-set {
+    display: flex;
+    gap: 10%;
+    width: auto;
+    margin-left: auto;
+    margin-right: 58px;
+}
+
+.edit-btn {
+    font-size: 1.6rem;
+    padding: 5% 23% 14% 23%;
+}
+.delete-btn {
+    font-size: 1.6rem;
+    padding: 5% 24% 14% 24%;
+}
+.news_list_button {
+    text-align: center;
+    padding: 15px 50px;
+    width: 48%;
+    background: #000000;
+    color: #FFFFFF;
+    border-radius: 30px;
+    text-decoration: none;
+}
+.news_list_button_area {
+    margin-top: 30px;
+    text-align: center;
+    justify-content: space-between;
 }

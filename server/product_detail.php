@@ -1,18 +1,29 @@
+<?php
+
+// セッション開始
+session_start();
+
+$current_user = '';
+
+if (isset($_SESSION['current_user'])) {
+    $current_user = $_SESSION['current_user'];
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-<?php include_once __DIR__ . '/head.html' ?> 
+<?php include_once __DIR__ . '/common/head.html' ?>
+
 <body>
-    <?php include_once __DIR__ . '/_header.php' ?>
+    <?php include_once __DIR__ . '/common/_header.php' ?>
     <div id="product_detail" class="product_content wrapper">
         <div class="product_img">
-            <img src="../images/古着1.webp" alt="古着写真">
+            <img src="/images/古着1.webp" alt="古着写真">
         </div>
         <div class="product_detail">
             <h1 class="product_name">
                 Reebok/"LONDON WEWBLEY STADIUM 28.OCT.07"Foodie
             </h1>
-            <h2 class="product_price">
+            <h2 class="product_detail_price">
                 3,750JPY
             </h2>
             <input type="submit" class="submit_btn" value="Add to cart">
@@ -30,6 +41,7 @@
             </p>
         </div>
     </div>
-    <?php include_once __DIR__ . '/_footer.html' ?>
+    <?php include_once __DIR__ . '/common/_footer.php' ?>
 </body>
+
 </html>
