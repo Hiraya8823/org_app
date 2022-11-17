@@ -21,3 +21,4 @@ define('MSG_NO_PRODUCTNAME', '商品名を入力してください');
 define('MSG_NO_PRICE', '価格を入力してください');
 define('MSG_NO_PRODUVCTDETAIL', '商品説明を入力してください');
 define('PRODUCTS_SOLDOUT', 1);
+define('MSG_PRODUCT_SOLDOUT', 'SOLD OUT');

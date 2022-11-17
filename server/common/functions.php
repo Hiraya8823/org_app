@@ -711,3 +711,21 @@ $stmt->execute();
 // 結果の取得
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+function insert_product_cart($id, $user_id)
+{
+    $dbh = connect_db();
+
+    $sql = <<<EOM
+    INSERT INTO 
+        carts
+        (products_id, users_id) 
+    VALUES 
+        (:products_id, :users_id );
+    EOM;
+    $stmt = $dbh->prepare($sql);
+
+    $stmt->bindValue(':products_id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':users_id', $user_id, PDO::PARAM_INT);
+
+    $stmt->execute();
+}

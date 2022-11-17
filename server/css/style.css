@@ -269,6 +269,16 @@ a:hover {
     color: #1878b9;
     margin-bottom: 20px;
 }
+.submit_btn_a{
+    background: #1878B9;
+    font-size: 25px;
+    border: 0px;
+    max-height: 50px;
+    color: #ffffff;
+    padding: 9px 50px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+}
 .submit_btn{
     background: #1878B9;
     font-size: 25px;
