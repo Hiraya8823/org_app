@@ -61,3 +61,20 @@ CREATE TABLE IF NOT EXISTS purchase_details (
         REFERENCES products(id)
         ON DELETE RESTRICT ON UPDATE RESTRICT
 );
+
+CREATE TABLE IF NOT EXISTS carts (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    products_id INT NOT NULL,
+    users_id INT NOT NULL,
+    admin BOOLEAN NOT NULL DEFAULT 0,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_carts_purchase_products_id
+    FOREIGN KEY (products_id)
+        REFERENCES products(id)
+        ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT fk_carts_details_users_id
+    FOREIGN KEY (users_id)
+        REFERENCES users(id)
+        ON DELETE RESTRICT ON UPDATE RESTRICT
+);
