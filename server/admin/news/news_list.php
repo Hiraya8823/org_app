@@ -17,6 +17,8 @@ if (isset($_SESSION['current_user'])) {
 // newsの取得
 $news_notdelete = find_news_by_admin(NEWS_NOTDELETE);
 
+$news_notdelete = array_reverse($news_notdelete);
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -31,7 +33,8 @@ $news_notdelete = find_news_by_admin(NEWS_NOTDELETE);
         <ul>
             <?php foreach ($news_notdelete as $news) : ?>
                 <li class="one-task">
-                    <a href="" class="btn check-btn done-btn"><?= h($news['name']) ?></a>
+                    <img src="../../images/<?= h($news['image']) ?>">
+                    <a href="/../../news_detail.php?id=<?= h($news['id']) ?>" class="btn check-btn done-btn news_detail_a"><?= h($news['name']) ?></a>
                     <div class="btn-set">
                         <a href="edit.php?id=<?= h($news['id']) ?>" class="btn edit-btn"><i class="fa-solid fa-pencil"></i></a>
                         <a href="delete.php?id=<?= h($news['id']) ?>" class="btn delete-btn"><i class="fa-solid fa-trash-can"></i></a>

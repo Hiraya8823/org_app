@@ -17,3 +17,7 @@ define('MSG_NO_IMAGE', '画像を選択してください');
 define('MSG_NO_NEWS_TITLE', 'NEWSタイトルを入力してください');
 define('MSG_NOT_ABLE_EXT', '選択したファイルの拡張子が有効ではありません');
 define('NEWS_NOTDELETE', 0);
+define('MSG_NO_PRODUCTNAME', '商品名を入力してください');
+define('MSG_NO_PRICE', '価格を入力してください');
+define('MSG_NO_PRODUVCTDETAIL', '商品説明を入力してください');
+define('PRODUCTS_SOLDOUT', 1);

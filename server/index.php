@@ -1,13 +1,24 @@
 <?php
 
+// 関数ファイルを読み込む
+require_once __DIR__ . '/common/functions.php';
+
 // セッション開始
 session_start();
 
 $current_user = '';
+$news_notdelete = '';
+$news_notdelete_reverse = '';
+$news = '';
+$products_notdelete = '';
 
 if (isset($_SESSION['current_user'])) {
     $current_user = $_SESSION['current_user'];
 }
+
+$news_notdelete = find_news_by_admin_order_limit(NEWS_NOTDELETE);
+$products_notdelete = find_products_by_done_order_limit(NEWS_NOTDELETE)
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -26,30 +37,18 @@ if (isset($_SESSION['current_user'])) {
     <section id="news" class="news_content wrapper">
         <h2 class="page_title">Events & News</h2>
         <div class="news_grid">
-            <article>
-                <a href="">
-                    <div class="news_header">
-                        <div class="day">2022.04.18</div>
-                        <h3>イベント出店のお知らせ</h3>
-                    </div>
-                </a>
-            </article>
-            <article>
-                <a href="">
-                    <div class="news_header">
-                        <div class="day">2022.04.18</div>
-                        <h3>イベント出店のお知らせ</h3>
-                    </div>
-                </a>
-            </article>
-            <article>
-                <a href="">
-                    <div class="news_header">
-                        <div class="day">2022.04.18</div>
-                        <h3>イベント出店のお知らせ</h3>
-                    </div>
-                </a>
-            </article>
+
+            <?php foreach ($news_notdelete as $news) : ?>
+                <article>
+                    <a href="news_detail.php?id=<?= h($news['id']) ?>">
+                        <div class="news_header">
+                            <div class="day"><?= h($news['created_at']) ?></div>
+                            <h3><?= h($news['name']) ?></h3>
+                        </div>
+                    </a>
+                </article>
+
+            <?php endforeach; ?>
             <a class="button" href="news.php">
                 More
                 <i class="fa-regular fa-circle-right"></i>
@@ -59,78 +58,17 @@ if (isset($_SESSION['current_user'])) {
     <section id="items" class="items_content wrapper">
         <h2 class="page_title">Items</h2>
         <div class="items_grid">
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着1.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>Reebok/"LONDON WEWBLEY STADIUM 28.OCT.07"Foodie</h3>
-                        4800JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着2.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>UMBRO/GLEN SHIELDS FC Practice shirt/X-Large</h3>
-                        3,957JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着3.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>Penfield/POLARTEC FLEECE JKT/Large/Made in USA</h3>
-                        5,390JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着4.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>Russell/"BOYS AND GIRLS CLUBS"Sweat/Medium</h3>
-                        4,135JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着5.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>USA PLAYER SPROTSWEAR/90's Heavy weight crew"ASU"/Medium</h3>
-                        4,400JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着1.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>Reebok/"LONDON WEWBLEY STADIUM 28.OCT.07"Foodie</h3>
-                        4800JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着2.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>UMBRO/GLEN SHIELDS FC Practice shirt/X-Large</h3>
-                        3,957JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着3.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>Penfield/POLARTEC FLEECE JKT/Large/Made in USA</h3>
-                        5,390JPY
-                    </div>
-                </a>
-            </article>
+            <?php foreach ($products_notdelete as $product_notdelete) : ?>
+                <article class="item">
+                    <a href="product_detail.php?id=<?= h($product_notdelete['id']) ?>">
+                        <img src="/images/<?= h($product_notdelete['image']) ?>" alt="古着写真">
+                        <div class="items_header">
+                            <h3><?= h($product_notdelete['name']) ?></h3>
+                            <p><?= h($product_notdelete['price']) ?>  JPY</p>
+                        </div>
+                    </a>
+                </article>
+            <?php endforeach; ?>
         </div>
         <a class="button" href="items.php">
             More

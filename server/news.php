@@ -1,13 +1,23 @@
 <?php
 
+require_once __DIR__ . '/common/functions.php';
+
+
 // セッション開始
 session_start();
 
 $current_user = '';
+$news_notdelete = '';
 
 if (isset($_SESSION['current_user'])) {
     $current_user = $_SESSION['current_user'];
 }
+
+
+// newsの取得
+$news_notdelete = find_news_by_admin(NEWS_NOTDELETE);
+$news_notdelete_reverse = array_reverse($news_notdelete);
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -21,123 +31,23 @@ if (isset($_SESSION['current_user'])) {
         </div>
         <h1 class="news_php_content">Events & News</h1>
         <div class="news_php_grid">
-            <article class="news_php">
-                <a href="">
-                    <div class="news_photo">
-                        <img src="../images/_1664343445.webp" alt="ニュース画像">
-                    </div>
-                    <div class="news_php_header">
-                        <h3>10月のイベント出店のお知らせ</h3>
-                    </div>
-                    <div class="news_day">
-                        2022.10.31
-                    </div>
-                </a>
-            </article>
-            <article class="news_php">
-                <a href="">
-                    <div class="news_photo">
-                        <img src="../images/_1664343445.webp" alt="ニュース画像">
-                    </div>
-                    <div class="news_php_header">
-                        <h3>10月のイベント出店のお知らせ</h3>
-                    </div>
-                    <div class="news_day">
-                        2022.10.31
-                    </div>
-                </a>
-            </article>
-            <article class="news_php">
-                <a href="">
-                    <div class="news_photo">
-                        <img src="../images/_1664343445.webp" alt="ニュース画像">
-                    </div>
-                    <div class="news_php_header">
-                        <h3>10月のイベント出店のお知らせ</h3>
-                    </div>
-                    <div class="news_day">
-                        2022.10.31
-                    </div>
-                </a>
-            </article>
-            <article class="news_php">
-                <a href="">
-                    <div class="news_photo">
-                        <img src="../images/_1664343445.webp" alt="ニュース画像">
-                    </div>
-                    <div class="news_php_header">
-                        <h3>10月のイベント出店のお知らせ</h3>
-                    </div>
-                    <div class="news_day">
-                        2022.10.31
-                    </div>
-                </a>
-            </article>
-            <article class="news_php">
-                <a href="">
-                    <div class="news_photo">
-                        <img src="../images/_1664343445.webp" alt="ニュース画像">
-                    </div>
-                    <div class="news_php_header">
-                        <h3>10月のイベント出店のお知らせ</h3>
-                    </div>
-                    <div class="news_day">
-                        2022.10.31
-                    </div>
-                </a>
-            </article>
-            <article class="news_php">
-                <a href="">
-                    <div class="news_photo">
-                        <img src="../images/_1664343445.webp" alt="ニュース画像">
-                    </div>
-                    <div class="news_php_header">
-                        <h3>10月のイベント出店のお知らせ</h3>
-                    </div>
-                    <div class="news_day">
-                        2022.10.31
-                    </div>
-                </a>
-            </article>
-            <article class="news_php">
-                <a href="">
-                    <div class="news_photo">
-                        <img src="../images/_1664343445.webp" alt="ニュース画像">
-                    </div>
-                    <div class="news_php_header">
-                        <h3>10月のイベント出店のお知らせ</h3>
-                    </div>
-                    <div class="news_day">
-                        2022.10.31
-                    </div>
-                </a>
-            </article>
-            <article class="news_php">
-                <a href="">
-                    <div class="news_photo">
-                        <img src="../images/_1664343445.webp" alt="ニュース画像">
-                    </div>
-                    <div class="news_php_header">
-                        <h3>10月のイベント出店のお知らせ</h3>
-                    </div>
-                    <div class="news_day">
-                        2022.10.31
-                    </div>
-                </a>
-            </article>
+            <?php foreach ($news_notdelete_reverse as $news) : ?>
+                <article class="news_php">
+                    <a href="news_detail.php?id=<?= h($news['id']) ?>">
+                        <div class="news_photo">
+                            <img src="../images/<?= h($news['image']) ?>" alt="ニュース画像">
+                        </div>
+                        <div class="news_php_header">
+                            <h3><?= h($news['name']) ?></h3>
+                        </div>
+                        <div class="news_day">
+                            <?= h($news['created_at']) ?>
+                        </div>
+                    </a>
+                </article>
+            <?php endforeach; ?>
         </div>
-        <ul class="pagination">
-            <li class="this">1</li>
-            <li class="pagination_hover">
-                <a href="">2</a>
-            </li>
-            <li>
-                <a href="">3</a>
-            </li>
-            <li>
-                <a href="">→</a>
-            </li>
-        </ul>
+
     </div>
     <?php include_once __DIR__ . '/common/_footer.php' ?>
 </body>

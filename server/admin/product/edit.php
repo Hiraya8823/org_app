@@ -8,7 +8,7 @@ session_start();
 
 $current_user = '';
 $errors = [];
-$news_db = [];
+$products_db = [];
 $id = [];
 
 if (isset($_SESSION['current_user'])) {
@@ -19,23 +19,24 @@ if (isset($_SESSION['current_user'])) {
 $id = filter_input(INPUT_GET, 'id');
 
 // 受け取った id のレコードを取得
-$news_db = find_news_by_id($id);
+$products_db = find_product_by_id($id);
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $news_title = filter_input(INPUT_POST, 'news_title');
-    $news = filter_input(INPUT_POST, 'news');
+    $product_name = filter_input(INPUT_POST, 'product_name');
+    $price = filter_input(INPUT_POST, 'price');
+    $product_detil = filter_input(INPUT_POST, 'product_detil');
     
     // バリデーション
-    $errors = update_news_validate($news, $news_title);
+    $errors = update_products_validate($product_name, $price, $product_detil);
 
 
     // エラーチェック
     if (empty($errors)) {
 
-        update_news($id, $news, $news_title);
+        update_produccts($id, $product_name, $price, $product_detil);
         // index.php にリダイレクト
-        header('Location: news_list.php');
+        header('Location: product_list.php');
         exit;
     }
 }
@@ -49,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include_once __DIR__ . '/../../common/_header.php' ?>
 
     <div class="news_new_content">
-        <h2 class="news_new_title">NEWS変更</h2>
+        <h2 class="news_new_title">商品変更</h2>
         <?php if (!empty($errors)) : ?>
             <ul class="errors">
                 <?php foreach ($errors as $error) : ?>
@@ -60,13 +61,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </ul>
         <?php endif; ?>
         <form class="news_new_form" action="" method="post" enctype="multipart/form-data">
-            <img src="../../images/<?= h($news_db['image']) ?>">
-            <label class="title_label" for="news_title">News タイトル</label>
-            <input type="text" name="news_title" id="news_title" placeholder="News Title" value="<?= h($news_db['name']) ?>">
-            <label class="news_label" for="news">News</label>
-            <textarea class="input_text" name="news" id="news" rows="5" placeholder="News内容" ><?= h($news_db['news']) ?></textarea>
+            <img src="../../images/<?= h($products_db['image']) ?>">
+            <label class="title_label" for="product_name">商品名</label>
+            <input type="text" name="product_name" id="product_name" placeholder="Product name" value="<?= h($products_db['name']) ?>">
+            <label class="title_label" for="price">価格</label>
+            <input type="text" name="price" id="price" placeholder="Price" value="<?= h($products_db['price']) ?>">
+            <label class="news_label" for="product_detil">商品説明</label>
+            <textarea class="input_text" name="product_detil" id="product_detil" rows="5" placeholder=""><?= h($products_db['explanation']) ?></textarea>
             <div class="button_area">
-                <a href="news_list.php" class="login_page_button">戻る</a>
+                <a href="product_list.php" class="login_page_button">戻る</a>
                 <input type="submit" value="登録" class="signup_button">
             </div>
         </form>

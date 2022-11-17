@@ -1,13 +1,14 @@
 <?php
+// 関数ファイルを読み込む
 require_once __DIR__ . '/common/functions.php';
+
 
 // セッション開始
 session_start();
 
 $current_user = '';
-$id = '';
-$products_db = '';
-
+$errors = [];
+$news_db = [];
 
 if (isset($_SESSION['current_user'])) {
     $current_user = $_SESSION['current_user'];
@@ -17,7 +18,7 @@ if (isset($_SESSION['current_user'])) {
 $id = filter_input(INPUT_GET, 'id');
 
 // 受け取った id のレコードを取得
-$products_db = find_product_by_id($id);
+$news_db = find_news_by_id($id);
 
 
 ?>
@@ -27,22 +28,17 @@ $products_db = find_product_by_id($id);
 
 <body>
     <?php include_once __DIR__ . '/common/_header.php' ?>
-    <div class="product_detail_content">
-        <div class="product_img">
-            <img src="/images/<?= h($products_db['image']) ?>" alt="古着写真">
-        </div>
-        <div class="product_detail">
-            <h1 class="product_name">
-                <?= h($products_db['name']) ?>
-            </h1>
-            <h2 class="product_detail_price">
-                <?= h($products_db['price']) ?>JPY
-            </h2>
-            <input type="submit" class="submit_btn" value="Add to cart">
+
+    <div class="news_detail_content">
+        <h1 class="news_new_title"><?= h($news_db['name']) ?></h1>
+        <div class="news_detail_php">
+            <img src="/images/<?= h($news_db['image']) ?>">
             <p class="textarea_p">
-            <?= h($products_db['explanation']) ?>
+                <?= h($news_db['news']) ?>
             </p>
         </div>
+
+
     </div>
     <?php include_once __DIR__ . '/common/_footer.php' ?>
 </body>
