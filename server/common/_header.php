@@ -20,7 +20,7 @@
                     <details>
                         <summary>Product設定</summary>
                         <li><a class="header_logout_button" href="/admin/product/new.php" class="nav-link">商品登録</a></li>
-                        <li><a class="header_logout_button" href="" class="nav-link">商品変更</a></li>
+                        <li><a class="header_logout_button" href="/admin/product/product_list.php" class="nav-link">商品変更</a></li>
                     </details>
                     
                 <?php else : ?>
@@ -32,18 +32,16 @@
     </div>
     <nav class="menu_content">
         <ul class="menu_nav">
-            <?php if (!empty($current_user) && $current_user['admin'] == 1) : ?>
-                <li><a href="/admin/index.php">Top</a></li>
-            <?php else : ?>
-                <li><a href="/">Top</a></li>
-            <?php endif; ?>
+            <li><a href="/">Top</a></li>
             <li><a href="/news.php">News</a></li>
             <li><a href="/items.php">Items</a></li>
             <li><a href="/index.php">About</a></li>
             <?php if (empty($current_user)) : ?>
                 <li><a href="/../login.php"><i class="fa-sharp fa-solid fa-user"></i></a></li>
+            <?php else : ?>
+                <li><a href="/../product_cart.php"><i class="fa-sharp fa-solid fa-cart-shopping"></i></a></li>
             <?php endif; ?>
-            <li><a href="/../product_cart.php"><i class="fa-sharp fa-solid fa-cart-shopping"></i></a></li>
+            
         </ul>
     </nav>
 </header>

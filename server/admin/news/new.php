@@ -72,7 +72,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="/" class="login_page_button">戻る</a>
                 <input type="submit" value="登録" class="signup_button">
             </div>
-
         </form>
 
     </div>

@@ -7,6 +7,15 @@ require_once __DIR__ . '/common/functions.php';
 session_start();
 
 $current_user = '';
+$id = '';
+$email = '';
+$user = '';
+$name = '';
+$post_code = '';
+$address = '';
+$phone_number = '';
+
+$errors = [];
 
 
 if (isset($_SESSION['current_user'])) {
@@ -17,13 +26,10 @@ if (isset($_SESSION['current_user'])) {
 /* タスク更新処理
 ---------------------------------------------*/
 $id = $current_user['id'];
-$email = $current_user['email'];
-$name = $current_user['name'];
-$post_code = $current_user['post_code'];
-$address = $current_user['address'];
-$phone_number = $current_user['phone_number'];
 
-$errors = [];
+
+
+$user = find_user_by_id($id);
 
 
 
@@ -60,15 +66,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php include_once __DIR__ . '/common/_errors.php' ?>
         <form class="signup_form" action="" method="post">
             <label class="email_label" for="email">メールアドレス</label>
-            <input type="email" name="email" id="email" placeholder="Email" value="<?= $email ?>">
+            <input type="email" name="email" id="email" placeholder="Email" value="<?= h($user['email']) ?>">
             <label class="name_label" for="name">ユーザー名</label>
-            <input type="text" name="name" id="name" placeholder="UserName" value="<?= $name ?>">
+            <input type="text" name="name" id="name" placeholder="UserName" value="<?= h($user['name']) ?>">
             <label class="password_label" for="post_code">郵便番号</label>
-            <input type="text" name="post_code" id="post_code" placeholder="Post_code" value="<?= $post_code ?>">
+            <input type="text" name="post_code" id="post_code" placeholder="Post_code" value="<?= h($user['post_code']) ?>">
             <label class="password_label" for="address">住所</label>
-            <input type="text" name="address" id="address" placeholder="Address" value="<?= $address ?>">
+            <input type="text" name="address" id="address" placeholder="Address" value="<?= h($user['address']) ?>">
             <label class="password_label" for="phone_number">電話番号</label>
-            <input type="tel" name="phone_number" id="phone_number" placeholder="Phone_number" value="<?= $phone_number ?>">
+            <input type="tel" name="phone_number" id="phone_number" placeholder="Phone_number" value="<?= h($user['phone_number']) ?>">
             <div class="button_area">
                 <a href="/" class="login_page_button">戻る</a>
                 <input type="submit" value="登録" class="signup_button">

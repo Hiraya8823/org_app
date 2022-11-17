@@ -1,13 +1,39 @@
 <?php
+require_once __DIR__ . '/common/functions.php';
 
 // セッション開始
 session_start();
 
 $current_user = '';
+$id = '';
+$products_db = '';
+$user_id = '';
 
 if (isset($_SESSION['current_user'])) {
     $current_user = $_SESSION['current_user'];
 }
+$user_id = $current_user['id'];
+
+// index.php から渡された id を受け取る
+$id = filter_input(INPUT_GET, 'id');
+
+// 受け取った id のレコードを取得
+$products_db = find_product_by_id($id);
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if ($products_db['done'] == 0) {
+        insert_product_cart($id, $user_id);
+        header('Location: product_cart.php');
+        exit;
+    } else {
+        $errors[] = MSG_PRODUCT_SOLDOUT;
+    }
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -15,29 +41,27 @@ if (isset($_SESSION['current_user'])) {
 
 <body>
     <?php include_once __DIR__ . '/common/_header.php' ?>
-    <div id="product_detail" class="product_content wrapper">
+    <div class="product_detail_content">
         <div class="product_img">
-            <img src="/images/古着1.webp" alt="古着写真">
+            <img src="/images/<?= h($products_db['image']) ?>" alt="古着写真">
         </div>
         <div class="product_detail">
+            <?php include_once __DIR__ . '/common/_errors.php' ?>
             <h1 class="product_name">
-                Reebok/"LONDON WEWBLEY STADIUM 28.OCT.07"Foodie
+                <?= h($products_db['name']) ?>
             </h1>
             <h2 class="product_detail_price">
-                3,750JPY
+                <?= h($products_db['price']) ?>JPY
             </h2>
-            <input type="submit" class="submit_btn" value="Add to cart">
-            <p>
-                90's Reebok のナイロンジャケット。ライトグレーとホワイトの切り替えが素敵な1枚。1枚生地のナイロンでさらっと着れる質感で今の季節にぴったり。大きめサイズでゆったり着れる秋服をお探しの方、是非どうぞ。<br>
-                ————————————————————<br>
-                Size XL ( 着丈 x 身幅 x 袖丈 x 肩幅 )<br>
-                78.5 x 70 x 60 x 63<br>
-                Fabric ( Nylon 100% )<br>
-                Model ( 179cm )<br>
-                ————————————————————<br>
-                ※USED商品ですので、写真と表記以外の傷や汚れがある場合がございます。<br>
-                中古の特性としてご理解下さい。<br>
-                ※画像と商品の色味が若干異なる場合がございます。予めご了承下さい。<br>
+            <?php if (!empty($current_user)) : ?>
+                <form action="" method="post">
+                    <input type="submit" class="submit_btn" value="Add to cart">
+                </form>
+            <?php else : ?>
+                <a href="login.php" class="submit_btn_a">Add to cart</a>
+            <?php endif; ?>
+            <p class="textarea_p">
+                <?= h($products_db['explanation']) ?>
             </p>
         </div>
     </div>

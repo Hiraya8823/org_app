@@ -1,13 +1,24 @@
 <?php
+// 関数ファイルを読み込む
+require_once __DIR__ . '/common/functions.php';
+require_once __DIR__ . '/common/config.php';
 
 // セッション開始
 session_start();
 
 $current_user = '';
+$products_notdelete = '';
+$product_notdelete_reverse = '';
+$product_notdelete_reverse = '';
 
 if (isset($_SESSION['current_user'])) {
     $current_user = $_SESSION['current_user'];
 }
+
+
+// 商品の取得
+$products_notdelete = find_prpduct_by_done(NEWS_NOTDELETE);
+$product_notdelete_reverse = array_reverse($products_notdelete);
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -21,163 +32,18 @@ if (isset($_SESSION['current_user'])) {
     <h1 class="news_php_content">All Items</h1>
     <section id="items" class="items_content wrapper">
         <div class="items_grid">
-            <article class="item">
-                <a href="product_detail.php">
-                    <img src="../images/古着1.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>Reebok/"LONDON WEWBLEY STADIUM 28.OCT.07"Foodie</h3>
-                        4800JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="product_detail.php">
-                    <img src="../images/古着2.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>UMBRO/GLEN SHIELDS FC Practice shirt/X-Large</h3>
-                        3,957JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="product_detail.php">
-                    <img src="../images/古着3.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>Penfield/POLARTEC FLEECE JKT/Large/Made in USA</h3>
-                        5,390JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="product_detail.php">
-                    <img src="../images/古着4.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>Russell/"BOYS AND GIRLS CLUBS"Sweat/Medium</h3>
-                        4,135JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着5.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>USA PLAYER SPROTSWEAR/90's Heavy weight crew"ASU"/Medium</h3>
-                        4,400JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着1.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>Reebok/"LONDON WEWBLEY STADIUM 28.OCT.07"Foodie</h3>
-                        4800JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着2.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>UMBRO/GLEN SHIELDS FC Practice shirt/X-Large</h3>
-                        3,957JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着3.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>Penfield/POLARTEC FLEECE JKT/Large/Made in USA</h3>
-                        5,390JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着4.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>Russell/"BOYS AND GIRLS CLUBS"Sweat/Medium</h3>
-                        4,135JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着5.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>USA PLAYER SPROTSWEAR/90's Heavy weight crew"ASU"/Medium</h3>
-                        4,400JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着1.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>Reebok/"LONDON WEWBLEY STADIUM 28.OCT.07"Foodie</h3>
-                        4800JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着2.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>UMBRO/GLEN SHIELDS FC Practice shirt/X-Large</h3>
-                        3,957JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着3.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>Penfield/POLARTEC FLEECE JKT/Large/Made in USA</h3>
-                        5,390JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着4.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>Russell/"BOYS AND GIRLS CLUBS"Sweat/Medium</h3>
-                        4,135JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着5.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>USA PLAYER SPROTSWEAR/90's Heavy weight crew"ASU"/Medium</h3>
-                        4,400JPY
-                    </div>
-                </a>
-            </article>
-            <article class="item">
-                <a href="">
-                    <img src="../images/古着1.webp" alt="古着写真">
-                    <div class="items_header">
-                        <h3>Reebok/"LONDON WEWBLEY STADIUM 28.OCT.07"Foodie</h3>
-                        4800JPY
-                    </div>
-                </a>
-            </article>
+            <?php foreach ($product_notdelete_reverse as $product_notdelete) : ?>
+                <article class="item">
+                    <a href="product_detail.php?id=<?= h($product_notdelete['id']) ?>">
+                        <img src="../images/<?= h($product_notdelete['image']) ?>" alt="古着写真">
+                        <div class="items_header">
+                            <h3><?= h($product_notdelete['name']) ?></h3>
+                            <p><?= h($product_notdelete['price']) ?>  JPY</p>
+                        </div>
+                    </a>
+                </article>
+            <?php endforeach; ?>
         </div>
-        <ul class="pagination">
-            <li class="this">1</li>
-            <li class="pagination_hover">
-                <a href="">2</a>
-            </li>
-            <li>
-                <a href="">3</a>
-            </li>
-            <li>
-                <a href="">→</a>
-            </li>
-        </ul>
     </section>
     <?php include_once __DIR__ . '/common/_footer.php' ?>
 </body>
