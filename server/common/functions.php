@@ -241,7 +241,7 @@ function update_user($id, $email, $name, $post_code, $address, $phone_number)
         address = :address,
         phone_number = :phone_number
     WHERE
-        id = :id
+        id = :id;
     EOM;
 
     // プリペアドステートメントの準備
@@ -321,7 +321,7 @@ function delete_news_by_id($id)
     SET
         admin = 1
     WHERE
-        id = :id
+        id = :id;
     EOM;
 
     // プリペアドステートメントの準備
@@ -559,7 +559,7 @@ function delete_product_by_id($id)
     SET
         done = 1
     WHERE
-        id = :id
+        id = :id;
     EOM;
 
     // プリペアドステートメントの準備
@@ -842,5 +842,104 @@ function find_product_price_by_user_id($id)
     $stmt->execute();
 
     // 結果の取得
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+function insert_payments($purchase_history_id, $email, $name, $post_code, $address, $phone_number)
+{
+    // データベースに接続
+    $dbh = connect_db();
+    // $id を使用してデータを更新
+    $sql = <<<EOM
+    INSERT INTO
+        payments
+        (purchase_history_id, email, name, post_code, address, phone_number)
+    VALUES
+        (:purchase_history_id, :email, :name, :post_code, :address, :phone_number);
+    EOM;
+
+    // プリペアドステートメントの準備
+    $stmt = $dbh->prepare($sql);
+    // パラメータのバインド
+    $stmt->bindValue(':purchase_history_id', $purchase_history_id, PDO::PARAM_INT);
+    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+    $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+    $stmt->bindValue(':post_code', $post_code, PDO::PARAM_STR);
+    $stmt->bindValue(':address', $address, PDO::PARAM_STR);
+    $stmt->bindValue(':phone_number', $phone_number, PDO::PARAM_STR);
+    // プリペアドステートメントの実行
+    $stmt->execute();
+}
+function delete_carts_by_id($id)
+{
+    // データベースに接続
+    $dbh = connect_db();
+
+    // $id を使用してデータを更新
+    $sql = <<<EOM
+    UPDATE
+        carts
+    SET
+        admin = 1
+    WHERE
+        users_id = :users_id;
+    EOM;
+
+    // プリペアドステートメントの準備
+    $stmt = $dbh->prepare($sql);
+
+    // パラメータのバインド
+    $stmt->bindValue(':users_id', $id, PDO::PARAM_INT);
+
+    // プリペアドステートメントの実行
+    $stmt->execute();
+}
+function insert_purchase_histories($id, $total_price)
+{
+    // データベースに接続
+    $dbh = connect_db();
+    // $id を使用してデータを更新
+    $sql = <<<EOM
+    INSERT INTO
+        purchase_histories
+        (user_id, total_price)
+    VALUES
+        (:user_id, :total_price);
+    EOM;
+
+    // プリペアドステートメントの準備
+    $stmt = $dbh->prepare($sql);
+    // パラメータのバインド
+    $stmt->bindValue(':user_id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':total_price', $total_price, PDO::PARAM_INT);
+
+    // プリペアドステートメントの実行
+    $stmt->execute();
+}
+function find_purchase_histories_by_id($id)
+{
+    // データベースに接続
+    $dbh = connect_db();
+
+    // $id を使用してデータを取得
+    $sql = <<<EOM
+    SELECT
+        id
+    FROM
+        purchase_histories
+    WHERE
+        user_id = :user_id;
+    EOM;
+
+    // プリペアドステートメントの準備
+    $stmt = $dbh->prepare($sql);
+
+    // パラメータのバインド
+    $stmt->bindValue(':user_id', $id, PDO::PARAM_INT);
+
+    // プリペアドステートメントの実行
+    $stmt->execute();
+
+    // 結果の取得
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+

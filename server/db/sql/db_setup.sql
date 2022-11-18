@@ -34,7 +34,6 @@ CREATE TABLE IF NOT EXISTS news (
 
 CREATE TABLE IF NOT EXISTS purchase_histories (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    purchase_date DATETIME NOT NULL,
     user_id INT NOT NULL,
     total_price INT NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -76,5 +75,21 @@ CREATE TABLE IF NOT EXISTS carts (
     CONSTRAINT fk_carts_details_users_id
     FOREIGN KEY (users_id)
         REFERENCES users(id)
+        ON DELETE RESTRICT ON UPDATE RESTRICT
+);
+CREATE TABLE IF NOT EXISTS payments (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    purchase_history_id INT NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    post_code VARCHAR(7) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(12) NOT NULL,
+    admin BOOLEAN NOT NULL DEFAULT 0,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_payments_purchase_histories_id
+    FOREIGN KEY (purchase_history_id)
+        REFERENCES purchase_histories(id)
         ON DELETE RESTRICT ON UPDATE RESTRICT
 );

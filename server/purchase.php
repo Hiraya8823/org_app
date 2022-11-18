@@ -14,6 +14,7 @@ $product_cart = '';
 $total_price = 0;
 $price_sum = '';
 $product_cart_price = '';
+$purchase_history_id = '';
 
 $errors = [];
 
@@ -22,14 +23,38 @@ if (isset($_SESSION['current_user'])) {
 }
 
 $id = $current_user['id'];
-
-
 $user = find_user_by_id($id);
-
 
 // ユーザーIDからproductIDを取得
 $products_cart = find_product_id_by_user_id($id);
 $product_cart_price = find_product_price_by_user_id($id);
+$total_price = $product_cart_price['total_price'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = filter_input(INPUT_POST, 'email');
+    $name = filter_input(INPUT_POST, 'name');
+    $post_code = filter_input(INPUT_POST, 'post_code');
+    $address = filter_input(INPUT_POST, 'address');
+    $phone_number = filter_input(INPUT_POST, 'phone_number');
+    // バリデーション
+    $errors = update_validate($email, $name, $post_code, $address, $phone_number, $current_user);
+
+
+    // エラーチェック
+    if (empty($errors)) {
+        delete_carts_by_id($id);
+        insert_purchase_histories($id, $total_price);
+        $purchase_history_id = find_purchase_histories_by_id($id);
+        insert_payments($purchase_history_id, $email, $name, $post_code, $address, $phone_number);
+        }
+        
+        
+        // index.php にリダイレクト
+        header('Location: index.php');
+        exit;
+    
+}
+
 
 
 ?>
@@ -63,7 +88,7 @@ $product_cart_price = find_product_price_by_user_id($id);
                     <?php endforeach; ?>
                     <div class="total_price">
                         <h1>Subtotal</h1>
-                        <h1> JPY</h1>
+                        <h1><?= $product_cart_price['total_price'] ?> JPY</h1>
                     </div>
                     <p>Tax included and shipping calculated at checkout.</p>
                 <?php endif; ?>
@@ -72,7 +97,7 @@ $product_cart_price = find_product_price_by_user_id($id);
 
         <div class="box purchase_content">
             <h1 class="left wrapper">
-                Customer Information
+                Payment
             </h1>
             <div class="right">
                 <p>※送料は一律1500円になります。</p>
@@ -83,8 +108,6 @@ $product_cart_price = find_product_price_by_user_id($id);
                     <label class="email_label" for="email">メールアドレス</label>
                     <input type="email" name="email" id="email" placeholder="Email" value="<?= h($user['email']) ?>">
                     <label class="name_label" for="name">名前</label>
-                    <input type="text" name="name" id="name" placeholder="UserName" value="<?= h($user['name']) ?>">
-                    <label class="name_label" for="name">ふりがな</label>
                     <input type="text" name="name" id="name" placeholder="UserName" value="<?= h($user['name']) ?>">
                     <label class="password_label" for="post_code">郵便番号</label>
                     <input type="text" name="post_code" id="post_code" placeholder="Post_code" value="<?= h($user['post_code']) ?>">

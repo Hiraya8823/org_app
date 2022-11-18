@@ -26,7 +26,6 @@ $user_id = $current_user['id'];
 
 // ユーザーIDからproductIDを取得
 $products_cart = find_product_id_by_user_id($user_id);
-
 $product_cart_price = find_product_price_by_user_id($user_id);
 
 
@@ -59,24 +58,23 @@ $product_cart_price = find_product_price_by_user_id($user_id);
                                 </h2>
                             </div>
                         </div>
+                        <div class="total_price">
+                            <h1>Subtotal</h1>
+                            <h1><?= $product_cart_price['total_price'] ?> JPY</h1>
+                        </div>
+                        <p>Tax included and shipping calculated at checkout.</p>
                     <?php endforeach; ?>
-                    <div class="total_price">
-                        <h1>Subtotal</h1>
-                        <h1><?= $product_cart_price['total_price'] ?> JPY</h1>
-                    </div>
-                    <p>Tax included and shipping calculated at checkout.</p>
-                    <div class="row_right">
-                        <a href="items.php" class="continue_shopping_btn">Continue shopping</a>
-                        <a href="purchase.php" class="check_out_btn">Check out</a>
-                    </div>
                 <?php else : ?>
                     <h1>Your cart is currently empty.</h1>
                     <a href="items.php">戻る</a>
                 <?php endif; ?>
+                <div class="row_right">
+                    <a href="items.php" class="continue_shopping_btn">Continue shopping</a>
+                    <a href="purchase.php" class="check_out_btn">Check out</a>
+                </div>
             </div>
         </div>
     </div>
-    <pre><?php var_dump($product_cart_price); ?></pre>
 </body>
 
 </html>
