@@ -651,3 +651,17 @@ textarea {
     margin-bottom: 30px;
     margin-top: 30px;
 }
+.purchase_content{
+    margin-top: 50px;
+}
+.purchase_form{
+    width: 600px;
+}
+.purchase_signup_button {
+    background: #1878B9;
+    padding: 6px 0;
+    width: 40%;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 35px;
+}

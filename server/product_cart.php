@@ -13,7 +13,7 @@ $products_carts = '';
 $product_cart = '';
 $total_price = 0;
 $price_sum = '';
-$product_cart_price = '';
+$product_cart_price = [];
 
 $errors = [];
 
@@ -62,7 +62,7 @@ $product_cart_price = find_product_price_by_user_id($user_id);
                     <?php endforeach; ?>
                     <div class="total_price">
                         <h1>Subtotal</h1>
-                            <h1><?= $product_cart_price['SUM(a.price)'] ?>  JPY</h1>
+                        <h1><?= $product_cart_price['total_price'] ?> JPY</h1>
                     </div>
                     <p>Tax included and shipping calculated at checkout.</p>
                     <div class="row_right">
@@ -76,7 +76,7 @@ $product_cart_price = find_product_price_by_user_id($user_id);
             </div>
         </div>
     </div>
-<pre><?php var_dump($product_cart_price); ?></pre>
+    <pre><?php var_dump($product_cart_price); ?></pre>
 </body>
 
 </html>

@@ -821,7 +821,7 @@ function find_product_price_by_user_id($id)
     // $id を使用してデータを取得
     $sql = <<<EOM
     SELECT 
-        SUM(a.price)
+        SUM(a.price) AS total_price
     FROM
         products a
     INNER JOIN

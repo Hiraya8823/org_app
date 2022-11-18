@@ -29,7 +29,6 @@ $user = find_user_by_id($id);
 
 // ユーザーIDからproductIDを取得
 $products_cart = find_product_id_by_user_id($id);
-
 $product_cart_price = find_product_price_by_user_id($id);
 
 
@@ -55,7 +54,6 @@ $product_cart_price = find_product_price_by_user_id($id);
                             <div class="product_cart_detail">
                                 <div class="product_name">
                                     <p><?= h($product_cart['name']) ?></p>
-                                    <a href="cart_delete.php?id=<?= h($product_cart['id']) ?>" class="product_cart_delete"><i class="fa-solid fa-trash-can"></i></a>
                                 </div>
                                 <h2 class="product_price">
                                     <?= h($product_cart['price']) ?> JPY
@@ -72,14 +70,16 @@ $product_cart_price = find_product_price_by_user_id($id);
             </div>
         </div>
 
-        <div class="box">
+        <div class="box purchase_content">
             <h1 class="left wrapper">
-                Your Cart
+                Customer Information
             </h1>
             <div class="right">
-                
+                <p>※送料は一律1500円になります。</p>
+                <p>※発送はご注文受付後一週間前後となります。</p>
+                <p>※現在着払いでのご注文のみの受付となります。</p>
                 <?php include_once __DIR__ . '/common/_errors.php' ?>
-                <form class="signup_form" action="" method="post">
+                <form class="signup_form purchase_form" action="" method="post">
                     <label class="email_label" for="email">メールアドレス</label>
                     <input type="email" name="email" id="email" placeholder="Email" value="<?= h($user['email']) ?>">
                     <label class="name_label" for="name">名前</label>
@@ -93,7 +93,7 @@ $product_cart_price = find_product_price_by_user_id($id);
                     <label class="password_label" for="phone_number">電話番号</label>
                     <input type="tel" name="phone_number" id="phone_number" placeholder="Phone_number" value="<?= h($user['phone_number']) ?>">
                     <div class="button_area">
-                        <input type="submit" value="登録" class="signup_button">
+                        <input type="submit" value="Purchase" class="purchase_signup_button">
                     </div>
                 </form>
             </div>
