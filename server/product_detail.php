@@ -9,10 +9,13 @@ $id = '';
 $products_db = '';
 $user_id = '';
 
+$errors = [];
+
 if (isset($_SESSION['current_user'])) {
     $current_user = $_SESSION['current_user'];
+    $user_id = $current_user['id'];
 }
-$user_id = $current_user['id'];
+
 
 // index.php から渡された id を受け取る
 $id = filter_input(INPUT_GET, 'id');
