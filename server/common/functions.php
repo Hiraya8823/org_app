@@ -914,6 +914,7 @@ function insert_purchase_histories($id, $total_price)
 
     // プリペアドステートメントの実行
     $stmt->execute();
+    return $dbh->lastInsertId();
 }
 function find_purchase_histories_by_id($id)
 {
@@ -942,4 +943,28 @@ function find_purchase_histories_by_id($id)
     // 結果の取得
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+function check_exist_carts($user_id, $id)
+{
+    $dbh = connect_db();
 
+    $sql = <<<EOM
+    SELECT 
+        users_id
+    FROM 
+        carts
+    WHERE 
+        products_id = :products_id;
+    EOM;
+
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindValue(':products_id', $id, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user != $user_id) {
+        return true;
+    } else {
+        return false;
+    }
+}

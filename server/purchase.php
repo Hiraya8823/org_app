@@ -43,8 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // エラーチェック
     if (empty($errors)) {
         delete_carts_by_id($id);
-        insert_purchase_histories($id, $total_price);
-        $purchase_history_id = find_purchase_histories_by_id($id);
+        $purchase_history_id = insert_purchase_histories($id, $total_price);
         insert_payments($purchase_history_id, $email, $name, $post_code, $address, $phone_number);
         }
         
