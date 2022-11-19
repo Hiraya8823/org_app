@@ -1,13 +1,34 @@
 <?php
 
+// 関数ファイルを読み込む
+require_once __DIR__ . '/common/functions.php';
+
 // セッション開始
 session_start();
 
 $current_user = '';
+$user_id = '';
+$products_cart = '';
+$products_carts = '';
+$product_cart = '';
+$total_price = 0;
+$price_sum = '';
+$product_cart_price = [];
+
+$errors = [];
 
 if (isset($_SESSION['current_user'])) {
     $current_user = $_SESSION['current_user'];
 }
+
+$user_id = $current_user['id'];
+
+
+// ユーザーIDからproductIDを取得
+$products_cart = find_product_id_by_user_id($user_id);
+$product_cart_price = find_product_price_by_user_id($user_id);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -21,44 +42,42 @@ if (isset($_SESSION['current_user'])) {
                 Your Cart
             </h1>
             <div class="right">
-                <div class="product_cart">
-                    <div class="product_cart_img">
-                        <img src="../images/古着1.webp" alt="">
-                    </div>
-                    <div class="product_cart_detail">
-                        <div class="product_name">
-                            <p>Reebok/"LONDON WEWBLEY STADIUM 28.OCT.07"Foodie</p>
+                <?php if (!empty($products_cart)) : ?>
+                    <?php foreach ($products_cart as $product_cart) : ?>
+                        <div class="product_cart">
+                            <div class="product_cart_img">
+                                <img src="../images/<?= h($product_cart['image']) ?>" alt="">
+                            </div>
+                            <div class="product_cart_detail">
+                                <div class="product_name">
+                                    <p><?= h($product_cart['name']) ?></p>
+                                    <a href="cart_delete.php?id=<?= h($product_cart['id']) ?>" class="product_cart_delete"><i class="fa-solid fa-trash-can"></i></a>
+                                </div>
+                                <h2 class="product_price">
+                                    <?= h($product_cart['price']) ?> JPY
+                                </h2>
+                            </div>
                         </div>
-                        <h2 class="product_price">
-                            3,750JPY
-                        </h2>
+                    <?php endforeach; ?>
+                    <div class="total_price">
+                        <h1>Subtotal</h1>
+                        <h1><?= $product_cart_price['total_price'] ?> JPY</h1>
                     </div>
-                </div>
-                <div class="product_cart_last">
-                    <div class="product_cart_img">
-                        <img src="../images/古着1.webp" alt="">
+                    <p>Tax included and shipping calculated at checkout.</p>
+                    <div class="row_right">
+                        <a href="items.php" class="continue_shopping_btn">Continue shopping</a>
+                        <a href="purchase.php" class="check_out_btn">Check out</a>
                     </div>
-                    <div class="product_cart_detail">
-                        <div class="product_name">
-                            <p>Reebok/"LONDON WEWBLEY STADIUM 28.OCT.07"Foodie</p>
-                        </div>
-                        <h2 class="product_price">
-                            3,750JPY
-                        </h2>
+                <?php else : ?>
+                    <div class="cart_empty">
+                        <h1>Your cart is currently empty.</h1>
                     </div>
-                </div>
-                <div class="total_price">
-                    <h1>Subtotal</h1>
-                    <h1>14,850 JPY</h1>
-                </div>
-                <p>Tax included and shipping calculated at checkout.</p>
-                <div class="row_right">
-                    <a href="purchase.php">Check out</a>
-                </div>
+                    <a href="items.php" class="cart_back_btn">Back</a>
+                <?php endif; ?>
+
             </div>
         </div>
     </div>
-    <?php include_once __DIR__ . '/common/_footer.php' ?>
 </body>
 
 </html>

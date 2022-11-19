@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/common/functions.php';
+require_once __DIR__ . '/common/config.php';
 
 // セッション開始
 session_start();
@@ -9,24 +10,29 @@ $id = '';
 $products_db = '';
 $user_id = '';
 
+$errors = [];
+
 if (isset($_SESSION['current_user'])) {
     $current_user = $_SESSION['current_user'];
+    $user_id = $current_user['id'];
 }
-$user_id = $current_user['id'];
+
 
 // index.php から渡された id を受け取る
 $id = filter_input(INPUT_GET, 'id');
-
 // 受け取った id のレコードを取得
 $products_db = find_product_by_id($id);
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
     if ($products_db['done'] == 0) {
-        insert_product_cart($id, $user_id);
-        header('Location: product_cart.php');
-        exit;
+        if (check_exist_carts($user_id, $id)) {
+            insert_product_cart($id, $user_id);
+            header('Location: product_cart.php');
+            exit;
+        } else {
+            $errors[] = MSG_PRODUCT_CART_DUPLICATE;
+        }
     } else {
         $errors[] = MSG_PRODUCT_SOLDOUT;
     }
