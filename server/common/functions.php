@@ -957,14 +957,38 @@ function check_exist_carts($user_id, $id)
     EOM;
 
     $stmt = $dbh->prepare($sql);
-    $stmt->bindValue(':products_id', $id, PDO::PARAM_STR);
+    $stmt->bindValue(':products_id', $id, PDO::PARAM_INT);
     $stmt->execute();
 
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $users_id = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user != $user_id) {
-        return true;
-    } else {
+    if (!empty($users_id) && $users_id == $user_id) {
         return false;
+    }else {
+        return true;
     }
+}
+function delete_products_by_id($p_id)
+{
+    // データベースに接続
+    $dbh = connect_db();
+
+    // $id を使用してデータを更新
+    $sql = <<<EOM
+    UPDATE
+        products
+    SET
+        done = 1
+    WHERE
+        id = :id;
+    EOM;
+
+    // プリペアドステートメントの準備
+    $stmt = $dbh->prepare($sql);
+
+    // パラメータのバインド
+    $stmt->bindValue(':id', $p_id, PDO::PARAM_INT);
+
+    // プリペアドステートメントの実行
+    $stmt->execute();
 }

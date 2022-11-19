@@ -15,6 +15,7 @@ $total_price = 0;
 $price_sum = '';
 $product_cart_price = '';
 $purchase_history_id = '';
+$p_id = '';
 
 $errors = [];
 
@@ -29,6 +30,7 @@ $user = find_user_by_id($id);
 $products_cart = find_product_id_by_user_id($id);
 $product_cart_price = find_product_price_by_user_id($id);
 $total_price = $product_cart_price['total_price'];
+$p_id = array_column($products_cart,'id');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_input(INPUT_POST, 'email');
@@ -45,13 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         delete_carts_by_id($id);
         $purchase_history_id = insert_purchase_histories($id, $total_price);
         insert_payments($purchase_history_id, $email, $name, $post_code, $address, $phone_number);
-        }
-        
-        
+        //delete_products_by_id($p_id); 
         // index.php にリダイレクト
-        header('Location: index.php');
+        header('Location: purchase_complete.php');
         exit;
-    
+        }
+
 }
 
 
@@ -93,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php endif; ?>
             </div>
         </div>
-
+<pre><?php var_dump($p_id); ?></pre>
         <div class="box purchase_content">
             <h1 class="left wrapper">
                 Payment

@@ -25,7 +25,7 @@ $products_db = find_product_by_id($id);
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if ($products_db['done'] != 1) {
+    if ($products_db['done'] == 0) {
         if (check_exist_carts($user_id, $id)) {
             insert_product_cart($id, $user_id);
             header('Location: product_cart.php');
