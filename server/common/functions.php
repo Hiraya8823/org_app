@@ -949,20 +949,22 @@ function check_exist_carts($user_id, $id)
 
     $sql = <<<EOM
     SELECT 
-        users_id
+        *
     FROM 
         carts
     WHERE 
-        products_id = :products_id;
+        products_id = :products_id &&
+        users_id = :users_id;
     EOM;
 
     $stmt = $dbh->prepare($sql);
     $stmt->bindValue(':products_id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':users_id', $user_id, PDO::PARAM_INT);
     $stmt->execute();
 
     $users_id = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!empty($users_id) && $users_id == $user_id) {
+    if (empty($users_id)) {
         return false;
     }else {
         return true;
