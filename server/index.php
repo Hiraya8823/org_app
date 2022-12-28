@@ -80,7 +80,7 @@ $products_notdelete = find_products_by_done_order_limit(NEWS_NOTDELETE)
         <div class="about_grid">
             <div class="about">
                 <h3>私たちは、文化古着を多様性の町二セコ町で広めたい思いで"Comfy"を始めました。"Comfy"とは英語で「快適な」や「居心地がいい」という意味"Comfortable"の口語系の形で、よりカジュアルな意味合いの言葉です。皆さんに当店での時間を心地よく過ごせるように、また当店の服や雑貨を身に着ける時に「ちょうど良い」と思っていただけるような想いを込めてお店の名前にさせていただきました。
-                    <br>イベントへの行商をメインに販売を行っております。
+                    <br>イベントへの行商をメインに古着の販売を行っております。
                 </h3>
             </div>
             <img src="/../images/comfy写真000.webp" alt="comfy背景写真">
